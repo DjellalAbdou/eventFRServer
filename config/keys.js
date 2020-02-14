@@ -1,3 +1,4 @@
 module.exports = {
-  mongoURI: "mongodb://localhost:27017/eventFR"
+  mongoURI: "mongodb://localhost:27017/eventFR",
+  API: "/api/"
 };
