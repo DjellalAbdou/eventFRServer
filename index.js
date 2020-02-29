@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const keys = require("./config/keys");
+const fs = require("fs");
 require("./models/Event");
 
 mongoose.connect(keys.mongoURI);
