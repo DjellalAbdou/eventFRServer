@@ -22,6 +22,34 @@ module.exports = app => {
     res.send({ events });
   });
 
+  app.put(keys.API + "likeEvent/:id", async (req, res) => {
+    console.log("entered update like");
+    let newEvent = await Events.findByIdAndUpdate(
+      { _id: req.params.id },
+      { liked: req.body.liked }
+    );
+    newEvent = await Events.findById({ _id: req.params.id });
+    res.send(newEvent);
+  });
+
+  app.get(keys.API + "events/search", async (req, res) => {
+    console.log("entered search");
+    let searchString = req.query.name;
+    var resultingEvents = null;
+    if (searchString !== "") {
+      let myregex = new RegExp("[^,]*" + searchString + "[^,]*");
+      resultingEvents = await Events.find({
+        title: { $in: [myregex] }
+      });
+    } else {
+      resultingEvents = await Events.find({});
+    }
+
+    console.log(resultingEvents);
+
+    res.send({ resultingEvents });
+  });
+
   app.post(
     keys.API + "addEvent",
     multer.upload.array("imageDetails", 2),
