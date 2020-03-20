@@ -1,7 +1,17 @@
 const multer = require("multer");
+const fs = require("fs");
+
+const isDirExist = dir => {
+  if (!fs.existsSync(dir)) {
+    console.log("cant find directory hahahahah ");
+    fs.mkdirSync(dir, { recursive: true });
+    fs.chmodSync(dir, 0o777);
+  }
+};
 
 const Storage = multer.diskStorage({
   destination(req, file, callback) {
+    isDirExist("./images");
     callback(null, "./images");
   },
   filename(req, file, callback) {
