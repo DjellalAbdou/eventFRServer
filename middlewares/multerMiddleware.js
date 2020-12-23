@@ -1,7 +1,7 @@
 const multer = require("multer");
 const fs = require("fs");
 
-const isDirExist = dir => {
+const isDirExist = (dir) => {
   if (!fs.existsSync(dir)) {
     console.log("cant find directory hahahahah ");
     fs.mkdirSync(dir, { recursive: true });
@@ -16,7 +16,7 @@ const Storage = multer.diskStorage({
   },
   filename(req, file, callback) {
     callback(null, `${file.fieldname}_${Date.now()}_${file.originalname}`);
-  }
+  },
 });
 
 const fileFilter = (req, file, callback) => {
@@ -34,5 +34,5 @@ const fileFilter = (req, file, callback) => {
 exports.upload = multer({
   storage: Storage,
   limits: { fileSize: 1024 * 1024 * 20 },
-  fileFilter
+  fileFilter,
 });
